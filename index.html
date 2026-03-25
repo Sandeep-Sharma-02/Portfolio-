@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Portfolio of Sandeep Sharma, a Computer Science undergraduate building backend systems, data science projects, and practical machine learning solutions."
+  />
+  <meta name="theme-color" content="#07111f" />
+  <title>Sandeep Sharma | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+  <div class="page-shell">
+    <nav id="navbar">
+      <a href="#hero" class="nav-logo" aria-label="Go to top">SS02</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#training">Training</a></li>
+        <li><a href="#certifications">Certificates</a></li>
+        <li><a href="#competitive">Coding Profiles</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="https://drive.google.com/file/d/11NewJJW5GkzhOMJ3qAtojDPKRe1tcXoI/view?usp=drive_link" target="_blank" rel="noopener">Resume PDF</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <main>
+      <section id="hero" class="hero">
+        <div class="hero-grid container">
+          <div class="hero-copy">
+            <p class="eyebrow">Introduction &amp; Summary</p>
+            <h1>Sandeep Sharma</h1>
+            <p class="hero-title">Backend Developer, Machine Learning Learner, and Problem Solver</p>
+            <p class="hero-lead">
+              Building reliable APIs, structured data workflows, and machine learning projects that turn concepts into practical outcomes.
+            </p>
+            <p class="hero-note">
+              Computer Science undergraduate with strong momentum in backend development, SQL-driven systems, model evaluation, and competitive programming.
+            </p>
+
+            <div class="hero-role-wrap hero-badges">
+              <span class="hero-badge">Node.js</span>
+              <span class="hero-badge">PostgreSQL</span>
+              <span class="hero-badge">Python</span>
+              <span class="hero-badge">Scikit-learn</span>
+            </div>
+
+            <div class="hero-actions">
+              <a href="#projects" class="btn btn-primary">View projects</a>
+              <a href="https://drive.google.com/file/d/11NewJJW5GkzhOMJ3qAtojDPKRe1tcXoI/view?usp=drive_link" class="btn btn-secondary" target="_blank" rel="noopener">Open resume PDF</a>
+              <a href="#contact" class="btn btn-ghost">Contact</a>
+            </div>
+
+            <div class="hero-socials">
+              <a href="https://github.com/Sandeep-Sharma-02" target="_blank" rel="noopener" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/shsandeep/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="mailto:sandeep001sharma121@gmail.com" aria-label="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+
+            <div class="hero-stats">
+              <article class="metric-card">
+                <span class="metric-value">3</span>
+                <span class="metric-label">Core projects</span>
+              </article>
+              <article class="metric-card">
+                <span class="metric-value">550+</span>
+                <span class="metric-label">Coding problems solved</span>
+              </article>
+              <article class="metric-card">
+                <span class="metric-value">8.85</span>
+                <span class="metric-label">Current CGPA</span>
+              </article>
+            </div>
+          </div>
+
+          <div class="hero-panel">
+            <div class="hero-card hero-card-main glass-card">
+              <div class="photo-frame-wrap" id="photoFrameWrap" title="Click to upload your photo">
+                <div class="photo-frame-ring"></div>
+                <div class="photo-frame-inner">
+                  <img id="profilePhoto" src="profile.jpg" alt="Sandeep Sharma" style="display:block;" />
+                  <div class="photo-placeholder" id="photoPlaceholder" style="display:none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                    <span>Upload Photo</span>
+                  </div>
+                </div>
+                <input type="file" id="photoInput" accept="image/*" style="display:none;" />
+              </div>
+              <p class="hero-card-kicker">Current Focus</p>
+              <h2>Engineering backend systems and ML projects with measurable output.</h2>
+              <p>
+                I enjoy building clean APIs, working with structured databases, and evaluating models with clear metrics instead of guesswork.
+              </p>
+              <div class="signal-list">
+                <span><i class="fas fa-server"></i> REST APIs with authentication and SQL-backed logic</span>
+                <span><i class="fas fa-brain"></i> Classification and prediction projects using Python</span>
+                <span><i class="fas fa-code-branch"></i> Consistent DSA and competitive coding practice</span>
+              </div>
+              <a href="#projects" class="summary-link">View selected projects <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="hero-card hero-card-mini glass-card">
+              <p class="mini-label">Quick Details</p>
+              <ul>
+                <li>B.Tech CSE, Lovely Professional University</li>
+                <li>Based in Punjab, India</li>
+                <li>Interested in backend and software roles</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <a href="#about" class="scroll-cue" aria-label="Scroll to about section">
+          <span>Scroll</span>
+          <i class="fas fa-arrow-down"></i>
+        </a>
+      </section>
+
+      <section id="about" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-kicker">About Me</p>
+            <h2>About Me</h2>
+          </div>
+
+          <div class="about-grid">
+            <div class="about-copy glass-card">
+              <p>
+                <strong>Sandeep Sharma</strong> is a <strong>Computer Science and Engineering</strong> student with a strong interest in
+                <strong>backend development</strong>, <strong>machine learning</strong>, and well-structured data systems.
+              </p>
+              <p>
+                His work spans REST API development, relational database design, exploratory data analysis, model training, and performance evaluation using meaningful metrics.
+              </p>
+              <p>
+                He brings a practical, learning-focused mindset and combines academic consistency with hands-on project execution and competitive coding discipline.
+              </p>
+            </div>
+
+            <div class="about-aside">
+              <div class="glass-card detail-stack">
+                <div class="detail-item">
+                  <span class="detail-label">Location</span>
+                  <span class="detail-value">Punjab, India</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">University</span>
+                  <span class="detail-value">Lovely Professional University</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Degree</span>
+                  <span class="detail-value">B.Tech CSE, Since Aug 2023</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Current CGPA</span>
+                  <span class="detail-value">8.85</span>
+                </div>
+              </div>
+
+              <div class="value-grid">
+                <article class="value-card glass-card">
+                  <i class="fas fa-cubes"></i>
+                  <h3>Systematic</h3>
+                  <p>Builds with clear structure, clean logic, and dependable workflows.</p>
+                </article>
+                <article class="value-card glass-card">
+                  <i class="fas fa-chart-line"></i>
+                  <h3>Data-Driven</h3>
+                  <p>Measures outcomes through metrics, evaluation, and iterative improvement.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" class="section section-dark">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-kicker">Skills &amp; Technologies</p>
+            <h2>Skills &amp; Technologies</h2>
+          </div>
+
+          <div class="skills-grid">
+            <article class="skill-category glass-card">
+              <div class="skill-icon"><i class="fas fa-code"></i></div>
+              <h3>Languages</h3>
+              <div class="skill-tags">
+                <span class="tag tag-blue">C++</span>
+                <span class="tag tag-orange">Python</span>
+                <span class="tag tag-yellow">JavaScript</span>
+                <span class="tag tag-purple">SQL</span>
+              </div>
+            </article>
+
+            <article class="skill-category glass-card">
+              <div class="skill-icon"><i class="fas fa-server"></i></div>
+              <h3>Backend</h3>
+              <div class="skill-tags">
+                <span class="tag tag-green">Node.js</span>
+                <span class="tag tag-teal">Express.js</span>
+                <span class="tag tag-red">FastAPI</span>
+                <span class="tag tag-dark">REST API</span>
+              </div>
+            </article>
+
+            <article class="skill-category glass-card">
+              <div class="skill-icon"><i class="fas fa-database"></i></div>
+              <h3>Databases</h3>
+              <div class="skill-tags">
+                <span class="tag tag-purple">PostgreSQL</span>
+                <span class="tag tag-blue">MySQL</span>
+                <span class="tag tag-orange">Schema Design</span>
+                <span class="tag tag-teal">SQL Queries</span>
+              </div>
+            </article>
+
+            <article class="skill-category glass-card">
+              <div class="skill-icon"><i class="fas fa-brain"></i></div>
+              <h3>Data Science &amp; ML</h3>
+              <div class="skill-tags">
+                <span class="tag tag-blue">NumPy</span>
+                <span class="tag tag-teal">Pandas</span>
+                <span class="tag tag-orange">Matplotlib</span>
+                <span class="tag tag-purple">Scikit-learn</span>
+              </div>
+            </article>
+
+            <article class="skill-category glass-card">
+              <div class="skill-icon"><i class="fas fa-screwdriver-wrench"></i></div>
+              <h3>Tools &amp; Platforms</h3>
+              <div class="skill-tags">
+                <span class="tag tag-dark">Git</span>
+                <span class="tag tag-dark">GitHub</span>
+                <span class="tag tag-blue">VS Code</span>
+                <span class="tag tag-green">Postman</span>
+                <span class="tag tag-yellow">Power BI</span>
+                <span class="tag tag-orange">Jupyter</span>
+                <span class="tag tag-teal">Kaggle</span>
+              </div>
+            </article>
+
+            <article class="skill-category glass-card">
+              <div class="skill-icon"><i class="fas fa-people-group"></i></div>
+              <h3>Soft Skills</h3>
+              <div class="skill-tags">
+                <span class="tag tag-teal">Problem Solving</span>
+                <span class="tag tag-green">Team Collaboration</span>
+                <span class="tag tag-blue">Communication</span>
+                <span class="tag tag-purple">Adaptability</span>
+                <span class="tag tag-yellow">Critical Thinking</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-kicker">Projects</p>
+            <h2>Projects and applied work.</h2>
+          </div>
+
+          <div class="projects-grid">
+            <article class="project-card glass-card">
+              <div class="project-topline">
+                <span class="project-date">Feb 2026 - Mar 2026</span>
+                <span class="project-kind">Backend Project</span>
+              </div>
+              <div class="project-visual project-chart">
+                <div class="chart-bars">
+                  <span class="chart-bar" style="height: 88%"><small>Auth</small></span>
+                  <span class="chart-bar" style="height: 72%"><small>Queries</small></span>
+                  <span class="chart-bar" style="height: 94%"><small>Tests</small></span>
+                  <span class="chart-bar" style="height: 78%"><small>Deploy</small></span>
+                </div>
+              </div>
+              <h3>FinTrack REST API</h3>
+              <p>Production-grade personal finance tracker API built with secure authentication, relational data design, and tested financial reporting endpoints.</p>
+              <ul class="project-points">
+                <li>Built 6 fully tested endpoints using Node.js, Express.js, and PostgreSQL.</li>
+                <li>Implemented JWT authentication and bcryptjs hashing for secure registration and login.</li>
+                <li>Created SQL-powered summary logic using aggregations for category and monthly breakdowns.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag tag-green">Node.js</span>
+                <span class="tag tag-teal">Express.js</span>
+                <span class="tag tag-purple">PostgreSQL</span>
+                <span class="tag tag-blue">JWT</span>
+              </div>
+              <div class="project-link-row">
+                <a href="https://github.com/Sandeep-Sharma-02/FinTrack-api" target="_blank" rel="noopener" class="cert-btn">View Project</a>
+              </div>
+            </article>
+
+            <article class="project-card glass-card">
+              <div class="project-topline">
+                <span class="project-date">Aug 2024 - Sep 2024</span>
+                <span class="project-kind">Machine Learning Project</span>
+              </div>
+              <div class="project-visual project-chart">
+                <div class="chart-metrics">
+                  <div>
+                    <strong>768</strong>
+                    <span>Records</span>
+                  </div>
+                  <div>
+                    <strong>0.87</strong>
+                    <span>ROC-AUC</span>
+                  </div>
+                  <div>
+                    <strong>3</strong>
+                    <span>Models</span>
+                  </div>
+                </div>
+              </div>
+              <h3>Diabetes Prediction using Machine Learning</h3>
+              <p>Health-data classification project focused on careful preprocessing, model comparison, and evaluation using multiple statistical performance metrics.</p>
+              <ul class="project-points">
+                <li>Cleaned and standardized data features for more stable model training.</li>
+                <li>Implemented Logistic Regression, Random Forest, and SVM for diabetes prediction.</li>
+                <li>Evaluated models using Accuracy, Precision, Recall, F1-Score, and ROC-AUC.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag tag-orange">Python</span>
+                <span class="tag tag-teal">Pandas</span>
+                <span class="tag tag-purple">Scikit-learn</span>
+                <span class="tag tag-yellow">Plotly</span>
+              </div>
+              <div class="project-link-row">
+                <a href="https://github.com/Sandeep-Sharma-02/PYTHON-PROJECT" target="_blank" rel="noopener" class="cert-btn">View Project</a>
+              </div>
+            </article>
+
+            <article class="project-card glass-card">
+              <div class="project-topline">
+                <span class="project-date">May 2024 - Jun 2024</span>
+                <span class="project-kind">Prediction Project</span>
+              </div>
+              <div class="project-visual project-chart">
+                <div class="chart-bars">
+                  <span class="chart-bar chart-bar-alt" style="height: 86%"><small>R2</small></span>
+                  <span class="chart-bar chart-bar-alt" style="height: 64%"><small>EDA</small></span>
+                  <span class="chart-bar chart-bar-alt" style="height: 76%"><small>Tuning</small></span>
+                  <span class="chart-bar chart-bar-alt" style="height: 68%"><small>PM2.5</small></span>
+                </div>
+              </div>
+              <h3>Air Quality Monitoring &amp; Pollution Level Prediction</h3>
+              <p>Data science project focused on pollutant trend analysis, feature engineering, and prediction of PM2.5 severity through tuned machine learning models.</p>
+              <ul class="project-points">
+                <li>Performed EDA and visualized temporal pollution patterns using Matplotlib and Seaborn.</li>
+                <li>Built Random Forest and XGBoost models to predict PM2.5 levels with an R2 score of 0.86.</li>
+                <li>Improved model accuracy through correlation analysis and hyperparameter tuning.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag tag-orange">Python</span>
+                <span class="tag tag-blue">Seaborn</span>
+                <span class="tag tag-green">XGBoost</span>
+                <span class="tag tag-purple">Scikit-learn</span>
+              </div>
+              <div class="project-link-row">
+                <a href="https://github.com/Sandeep-Sharma-02/airpollution-project" target="_blank" rel="noopener" class="cert-btn">View Project</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="training" class="section section-dark">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-kicker">Training</p>
+            <h2>Training and structured learning.</h2>
+          </div>
+
+          <div class="timeline">
+            <article class="timeline-item glass-card">
+              <div class="timeline-marker"></div>
+              <div class="timeline-body">
+                <div class="timeline-head">
+                  <h3>Machine Learning with Data Science - Cipher Schools</h3>
+                  <span>Jun 2025 - Jul 2025</span>
+                </div>
+                <p>Completed an intensive training program covering Python-based data science workflows, model building, and end-to-end evaluation practices.</p>
+                <div class="timeline-tags">
+                  <span class="tag tag-orange">Python</span>
+                  <span class="tag tag-teal">NumPy</span>
+                  <span class="tag tag-blue">Pandas</span>
+                  <span class="tag tag-purple">Scikit-learn</span>
+                </div>
+                <a href="https://drive.google.com/file/d/15oU3h2VCrgd7Ux-hBaPm2NhFI4iFjQfj/view?usp=drive_link" target="_blank" rel="noopener" class="cert-btn">View Certificate</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="section-callout glass-card">
+            <p class="callout-title">What This Added</p>
+            <p>Stronger foundations in data preparation, visualization, classification, regression, and model evaluation using practical project-style workflows.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="certifications" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-kicker">Certificates</p>
+            <h2>Certificates and learning milestones.</h2>
+          </div>
+
+          <div class="certs-grid">
+            <article class="cert-card glass-card">
+              <i class="fas fa-graduation-cap"></i>
+              <div>
+                <h3>Supervised Machine Learning: Regression and Classification</h3>
+                <p>DeepLearning.AI / Coursera</p>
+                <span>Jan 2024</span>
+              </div>
+              <a href="https://drive.google.com/file/d/15oU3h2VCrgd7Ux-hBaPm2NhFI4iFjQfj/view?usp=drive_link" target="_blank" rel="noopener" class="cert-btn">View Certificate</a>
+            </article>
+
+            <article class="cert-card glass-card">
+              <i class="fas fa-brain"></i>
+              <div>
+                <h3>A Guide To Machine Learning With Data Science</h3>
+                <p>Cipher Schools</p>
+                <span>Jul 2025</span>
+              </div>
+              <a href="https://drive.google.com/file/d/15oU3h2VCrgd7Ux-hBaPm2NhFI4iFjQfj/view?usp=drive_link" target="_blank" rel="noopener" class="cert-btn">View Certificate</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="competitive" class="section section-dark">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-kicker">Coding Profiles</p>
+            <h2>Problem solving consistency backed by practice metrics.</h2>
+          </div>
+
+          <div class="achievement-grid">
+            <article class="achievement-card glass-card">
+              <i class="fas fa-code"></i>
+              <div>
+                <h3>LeetCode Practice</h3>
+                <p>Solved 350+ problems and reached a 1600+ rating through regular algorithm and data structure practice.</p>
+                <span>Ongoing</span>
+              </div>
+            </article>
+
+            <article class="achievement-card glass-card">
+              <i class="fas fa-bolt"></i>
+              <div>
+                <h3>Codeforces Progress</h3>
+                <p>Solved 200+ problems and crossed 1100+ rating while participating in competitive programming contests.</p>
+                <span>Ongoing</span>
+              </div>
+            </article>
+
+            <article class="achievement-card glass-card">
+              <i class="fas fa-gauge-high"></i>
+              <div>
+                <h3>Impact Snapshot</h3>
+                <p>Competitive practice continues to improve speed, debugging instinct, and confidence with implementation under pressure.</p>
+                <span>Consistent Growth</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="status-grid">
+            <article class="status-card glass-card">
+              <h3>Problem Solving Volume</h3>
+              <div class="score-row">
+                <span>Total Solved</span>
+                <strong>550+</strong>
+              </div>
+              <div class="score-bar"><span style="width: 82%"></span></div>
+            </article>
+            <article class="status-card glass-card">
+              <h3>Academic Strength</h3>
+              <div class="score-row">
+                <span>Current CGPA</span>
+                <strong>8.85 / 10</strong>
+              </div>
+              <div class="score-bar"><span style="width: 88.5%"></span></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="education" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-kicker">Education</p>
+            <h2>Academic background.</h2>
+          </div>
+
+          <div class="education-grid">
+            <article class="education-card glass-card">
+              <span class="education-year">Since Aug 2023</span>
+              <h3>Bachelor of Technology in Computer Science and Engineering</h3>
+              <p>Lovely Professional University, Punjab, India</p>
+              <div class="score-row">
+                <span>CGPA</span>
+                <strong>8.85</strong>
+              </div>
+              <div class="score-bar"><span style="width: 88.5%"></span></div>
+            </article>
+
+            <article class="education-card glass-card">
+              <span class="education-year">Apr 2018 - May 2020</span>
+              <h3>Intermediate</h3>
+              <p>Prince Academy Of Higher Education, Sikar, Rajasthan</p>
+              <div class="score-row">
+                <span>Percentage</span>
+                <strong>96.6%</strong>
+              </div>
+              <div class="score-bar"><span style="width: 96.6%"></span></div>
+            </article>
+
+            <article class="education-card glass-card">
+              <span class="education-year">Apr 2017 - May 2018</span>
+              <h3>Matriculation</h3>
+              <p>Shekhawati INT Academy, Losal, Sikar, Rajasthan</p>
+              <div class="score-row">
+                <span>Percentage</span>
+                <strong>88%</strong>
+              </div>
+              <div class="score-bar"><span style="width: 88%"></span></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="resume-download" class="section section-dark">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-kicker">Resume Access</p>
+            <h2>Download the resume directly or open the printable web version.</h2>
+          </div>
+
+          <div class="resume-download-grid">
+            <div class="resume-download-card glass-card">
+              <p class="callout-title">Resume Formats</p>
+              <p>The portfolio includes a direct PDF download for applications and a web-based resume page for printing or quick review.</p>
+              <div class="hero-actions">
+                <a href="https://drive.google.com/file/d/11NewJJW5GkzhOMJ3qAtojDPKRe1tcXoI/view?usp=drive_link" class="btn btn-primary" target="_blank" rel="noopener">
+                  <i class="fas fa-file-pdf"></i>
+                  Open PDF
+                </a>
+                <a href="resume.html" class="btn btn-secondary">Open resume page</a>
+              </div>
+            </div>
+
+            <div class="resume-download-card glass-card">
+              <p class="callout-title">Best For</p>
+              <ul class="resume-points">
+                <li>Applying quickly with a clean attached resume</li>
+                <li>Sharing profile details in a recruiter-friendly format</li>
+                <li>Keeping the website and resume aligned</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-kicker">Contact</p>
+            <h2>Let us connect.</h2>
+          </div>
+
+          <div class="contact-grid">
+            <div class="contact-panel glass-card">
+              <p class="contact-intro">
+                Open to opportunities where backend development, software engineering fundamentals, machine learning, or problem solving can create clear value.
+              </p>
+
+              <a href="mailto:sandeep001sharma121@gmail.com" class="contact-link">
+                <i class="fas fa-envelope"></i>
+                <span>sandeep001sharma121@gmail.com</span>
+              </a>
+              <a href="tel:+917878272340" class="contact-link">
+                <i class="fas fa-phone"></i>
+                <span>+91 78782 72340</span>
+              </a>
+              <a href="https://www.linkedin.com/in/shsandeep/" target="_blank" rel="noopener" class="contact-link">
+                <i class="fab fa-linkedin-in"></i>
+                <span>linkedin.com/in/shsandeep</span>
+              </a>
+              <a href="https://github.com/Sandeep-Sharma-02" target="_blank" rel="noopener" class="contact-link">
+                <i class="fab fa-github"></i>
+                <span>github.com/Sandeep-Sharma-02</span>
+              </a>
+            </div>
+
+            <form class="contact-form glass-card" id="contactForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" id="name" name="name" placeholder="Your name" required />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" placeholder="your@email.com" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" placeholder="Opportunity, project, or collaboration" required />
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="6"
+                  placeholder="Share a few details about the role, team, or project."
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">
+                <i class="fas fa-paper-plane"></i>
+                Send with email
+              </button>
+              <p class="form-note">This opens your default mail app with the details filled in.</p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <p class="footer-name">Sandeep Sharma</p>
+          <p class="footer-copy">Portfolio focused on backend systems, machine learning projects, and practical problem solving.</p>
+        </div>
+        <div class="footer-actions">
+          <a href="https://drive.google.com/file/d/11NewJJW5GkzhOMJ3qAtojDPKRe1tcXoI/view?usp=drive_link" class="footer-resume" target="_blank" rel="noopener">Open Resume PDF</a>
+          <div class="footer-socials">
+            <a href="https://github.com/Sandeep-Sharma-02" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/shsandeep/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="mailto:sandeep001sharma121@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <button id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+  <script src="script.js"></script>
+</body>
+</html>
