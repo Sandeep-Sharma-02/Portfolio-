@@ -4,8 +4,13 @@
   if (canvas) {
     const ctx = canvas.getContext("2d");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const compact = window.matchMedia("(max-width: 900px)").matches;
+    const lowPower = reduced || compact;
     let W = 0, H = 0, t = 0;
     const mx = { x: -9999, y: -9999 };
+    let frameId = null;
+    let resumeTimer = null;
+    let paused = false;
 
     /* ═══════ MORPHING GRADIENT BLOBS ═══════ */
     const blobs = [
@@ -32,8 +37,8 @@
     }
 
     /* ═══════ FLOATING MESH NODES ═══════ */
-    const NODE_COUNT = reduced ? 40 : 90;
-    const CONNECT_DIST = 180;
+    const NODE_COUNT = lowPower ? 24 : 54;
+    const CONNECT_DIST = lowPower ? 120 : 150;
     let nodes = [];
 
     function makeNode() {
@@ -50,18 +55,18 @@
 
     function updateNodes() {
       nodes.forEach(n => {
-        if (!reduced) {
+        if (!lowPower) {
           n.x += n.vx;
           n.y += n.vy;
         }
 
         /* mouse attraction — gentle pull */
-        if (mx.x > 0) {
+        if (!lowPower && mx.x > 0) {
           const dx = mx.x - n.x, dy = mx.y - n.y;
           const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 250 && d > 1) {
-            n.vx += (dx / d) * 0.012;
-            n.vy += (dy / d) * 0.012;
+          if (d < 180 && d > 1) {
+            n.vx += (dx / d) * 0.008;
+            n.vy += (dy / d) * 0.008;
           }
         }
 
@@ -97,7 +102,7 @@
       }
 
       /* mouse connections — brighter */
-      if (mx.x > 0) {
+      if (!lowPower && mx.x > 0) {
         nodes.forEach(n => {
           const dx = mx.x - n.x, dy = mx.y - n.y;
           const d = Math.sqrt(dx * dx + dy * dy);
@@ -134,7 +139,7 @@
 
     /* ═══════ SUBTLE GRID OVERLAY ═══════ */
     function drawGrid() {
-      const spacing = 60;
+      const spacing = lowPower ? 90 : 72;
       ctx.strokeStyle = "rgba(125,249,198,0.018)";
       ctx.lineWidth = 0.5;
 
@@ -152,7 +157,7 @@
       }
 
       /* mouse glow on grid intersections */
-      if (mx.x > 0) {
+      if (!lowPower && mx.x > 0) {
         const nearX = Math.round(mx.x / spacing) * spacing;
         const nearY = Math.round(mx.y / spacing) * spacing;
         for (let ox = -2; ox <= 2; ox++) {
@@ -174,7 +179,7 @@
     }
 
     /* ═══════ AMBIENT FLOATING PARTICLES ═══════ */
-    const PARTICLE_COUNT = reduced ? 15 : 35;
+    const PARTICLE_COUNT = lowPower ? 8 : 18;
     let particles = [];
 
     function makeParticle() {
@@ -190,7 +195,7 @@
 
     function drawParticles() {
       particles.forEach(p => {
-        if (!reduced) {
+        if (!lowPower) {
           p.y += p.vy;
           p.x += Math.sin(t * 0.5 + p.y * 0.005) * 0.15;
         }
@@ -205,31 +210,67 @@
 
     /* ═══════ RESIZE & LOOP ═══════ */
     function resize() {
-      W = canvas.width  = window.innerWidth;
-      H = canvas.height = window.innerHeight;
+      const ratio = lowPower ? 0.72 : Math.min(window.devicePixelRatio || 1, 1.25);
+      W = Math.floor(window.innerWidth * ratio);
+      H = Math.floor(window.innerHeight * ratio);
+      canvas.width = W;
+      canvas.height = H;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
       nodes = Array.from({ length: NODE_COUNT }, () => makeNode());
       particles = Array.from({ length: PARTICLE_COUNT }, () => makeParticle());
     }
 
     function frame() {
+      if (paused) return;
       ctx.clearRect(0, 0, W, H);
-      if (!reduced) t += 0.016;
+      if (!lowPower) t += 0.016;
 
       drawBlobs();
-      drawGrid();
+      if (!lowPower) {
+        drawGrid();
+      }
       updateNodes();
       drawMesh();
       drawParticles();
 
-      requestAnimationFrame(frame);
+      frameId = requestAnimationFrame(frame);
+    }
+
+    function pauseCanvas() {
+      paused = true;
+      if (frameId) {
+        cancelAnimationFrame(frameId);
+        frameId = null;
+      }
+    }
+
+    function resumeCanvas() {
+      if (!paused) return;
+      paused = false;
+      frame();
     }
 
     resize();
     frame();
 
-    window.addEventListener("mousemove", e => { mx.x = e.clientX; mx.y = e.clientY; });
-    window.addEventListener("mouseleave", () => { mx.x = -9999; mx.y = -9999; });
-    window.addEventListener("resize", resize);
+    window.addEventListener("mousemove", e => { mx.x = e.clientX; mx.y = e.clientY; }, { passive: true });
+    window.addEventListener("mouseleave", () => { mx.x = -9999; mx.y = -9999; }, { passive: true });
+    window.addEventListener("resize", resize, { passive: true });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        pauseCanvas();
+      } else {
+        resumeCanvas();
+      }
+    });
+    window.addEventListener("scroll", () => {
+      pauseCanvas();
+      if (resumeTimer) clearTimeout(resumeTimer);
+      resumeTimer = window.setTimeout(() => {
+        resumeCanvas();
+      }, 110);
+    }, { passive: true });
   }
 
   const navbar = document.getElementById("navbar");
@@ -243,7 +284,7 @@
     backToTop?.classList.toggle("visible", window.scrollY > 420);
   }
 
-  window.addEventListener("scroll", updateScrollState);
+  window.addEventListener("scroll", updateScrollState, { passive: true });
   updateScrollState();
 
   if (hamburger && navLinks) {

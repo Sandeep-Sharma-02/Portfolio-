@@ -50,10 +50,10 @@ body::before {
     linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
     radial-gradient(circle at center, rgba(255, 255, 255, 0.18) 1px, transparent 1.6px);
-  background-size: 84px 84px, 84px 84px, 160px 160px;
+  background-size: 110px 110px, 110px 110px, 220px 220px;
   background-position: center center, center center, 26px 24px;
-  mask-image: radial-gradient(circle at center, black 42%, transparent 92%);
-  opacity: 0.32;
+  mask-image: radial-gradient(circle at center, black 52%, transparent 96%);
+  opacity: 0.18;
 }
 
 body::after {
@@ -66,8 +66,8 @@ body::after {
     radial-gradient(circle at 16% 22%, rgba(255, 188, 118, 0.18), transparent 24%),
     radial-gradient(circle at 84% 24%, rgba(120, 183, 255, 0.18), transparent 22%),
     radial-gradient(circle at 62% 68%, rgba(125, 249, 198, 0.12), transparent 26%);
-  filter: blur(70px);
-  opacity: 0.8;
+  filter: blur(42px);
+  opacity: 0.5;
   animation: ambientFloat 18s ease-in-out infinite alternate;
 }
 
@@ -110,7 +110,7 @@ ul {
   background: var(--panel);
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(10px);
 }
 
 #navbar {
@@ -1853,6 +1853,20 @@ ul {
 }
 
 @media (max-width: 980px) {
+  body::before {
+    opacity: 0.12;
+    mask-image: none;
+  }
+
+  body::after {
+    filter: blur(26px);
+    opacity: 0.28;
+  }
+
+  .glass-card {
+    backdrop-filter: blur(6px);
+  }
+
   .hero-grid,
   .about-grid,
   .contact-grid,
