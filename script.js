@@ -344,6 +344,7 @@
   const input = document.getElementById('photoInput');
   const img = document.getElementById('profilePhoto');
   const placeholder = document.getElementById('photoPlaceholder');
+  const defaultPhoto = 'profile-photo.jpeg';
 
   if (!wrap) return;
 
@@ -354,10 +355,16 @@
     img.style.display = 'block';
     placeholder.style.display = 'none';
   } else {
+    img.src = defaultPhoto;
+    img.style.display = 'block';
+    placeholder.style.display = 'none';
+  }
+
+  img.addEventListener('error', () => {
     img.removeAttribute('src');
     img.style.display = 'none';
     placeholder.style.display = 'flex';
-  }
+  });
 
   wrap.addEventListener('click', () => input.click());
 
@@ -372,5 +379,406 @@
       try { localStorage.setItem('ss_profile_photo', e.target.result); } catch (_) {}
     };
     reader.readAsDataURL(file);
+  });
+})();
+
+// Interactive project previews
+(() => {
+  const modal = document.getElementById("projectModal");
+  const title = document.getElementById("projectModalTitle");
+  const subtitle = document.getElementById("projectModalSubtitle");
+  const label = document.getElementById("projectModalLabel");
+  const toolbar = document.getElementById("projectModalToolbar");
+  const body = document.getElementById("projectModalBody");
+  const closeButton = document.getElementById("projectModalClose");
+  const previewButtons = document.querySelectorAll("[data-project-preview]");
+
+  if (!modal || !title || !subtitle || !toolbar || !body || !previewButtons.length) return;
+
+  const state = {
+    projectId: null,
+    activeView: null,
+    fintrackCell: "Week 3 / Thursday",
+    diabetesModel: "Random Forest",
+    diabetesSegment: "Balanced glucose profile",
+    airMetric: "PM2.5",
+    airView: "Peak week",
+  };
+
+  const fintrackHeat = [
+    ["Week 1 / Mon", 1], ["Week 1 / Tue", 3], ["Week 1 / Wed", 2], ["Week 1 / Thu", 4], ["Week 1 / Fri", 3], ["Week 1 / Sat", 2], ["Week 1 / Sun", 5],
+    ["Week 2 / Mon", 2], ["Week 2 / Tue", 4], ["Week 2 / Wed", 1], ["Week 2 / Thu", 5], ["Week 2 / Fri", 3], ["Week 2 / Sat", 2], ["Week 2 / Sun", 4],
+    ["Week 3 / Mon", 1], ["Week 3 / Tue", 2], ["Week 3 / Wed", 4], ["Week 3 / Thursday", 5], ["Week 3 / Fri", 3], ["Week 3 / Sat", 4], ["Week 3 / Sun", 2],
+    ["Week 4 / Mon", 3], ["Week 4 / Tue", 2], ["Week 4 / Wed", 4], ["Week 4 / Thu", 5], ["Week 4 / Fri", 2], ["Week 4 / Sat", 3], ["Week 4 / Sun", 4],
+  ];
+
+  const fintrackDetails = {
+    "Week 3 / Thursday": "Highest activity window with stronger transaction density, category summary requests, and end-of-week budget checks.",
+    "Week 1 / Thu": "Authentication and transaction creation requests peak here, which matches first-week budgeting behavior.",
+    "Week 2 / Sun": "Summary endpoints and grouped SQL reports surface more often when users review weekly spending.",
+  };
+
+  const diabetesModels = {
+    "Logistic Regression": {
+      accuracy: "81%",
+      precision: "0.79",
+      recall: "0.76",
+      note: "Strong baseline with interpretable linear decision boundaries and dependable stability after feature scaling.",
+      bars: [58, 66, 71, 64, 68],
+    },
+    "Random Forest": {
+      accuracy: "85%",
+      precision: "0.84",
+      recall: "0.82",
+      note: "Best overall balance in the project, capturing non-linear patterns and producing the strongest ROC-AUC result.",
+      bars: [72, 81, 88, 77, 84],
+    },
+    "SVM": {
+      accuracy: "83%",
+      precision: "0.82",
+      recall: "0.79",
+      note: "Competitive performance with cleaner margins after scaling, especially useful for a tighter separation boundary.",
+      bars: [64, 74, 79, 69, 76],
+    },
+  };
+
+  const diabetesSegments = {
+    "Balanced glucose profile": "Low-to-moderate risk profile where multiple health indicators remain within manageable ranges.",
+    "Elevated glucose trend": "Rising diabetes probability driven primarily by fasting glucose and BMI movement above the safer band.",
+    "High BMI and glucose": "Higher-risk cluster where combined BMI pressure and glucose levels materially increase positive prediction likelihood.",
+  };
+
+  const airMetrics = {
+    "PM2.5": {
+      note: "Primary target variable for the project, showing sharper urban spikes and stronger sensitivity to weather-linked variation.",
+      bars: [42, 58, 51, 72, 84, 63, 78],
+    },
+    "NO2": {
+      note: "Traffic-linked changes are visible here, but the pattern is slightly smoother than PM2.5 during the same period.",
+      bars: [38, 43, 49, 57, 62, 54, 59],
+    },
+    "SO2": {
+      note: "Lower amplitude compared with other pollutants, but still useful for identifying industrial pockets in the data.",
+      bars: [24, 29, 27, 35, 41, 33, 36],
+    },
+    "O3": {
+      note: "More daytime and seasonal behavior, with a wider spread in later intervals of the observed cycle.",
+      bars: [31, 36, 42, 47, 44, 53, 57],
+    },
+  };
+
+  const projects = {
+    fintrack: {
+      title: "FinTrack REST API",
+      subtitle: "Interactive backend dashboard concept aligned with secure finance tracking, SQL summaries, and endpoint usage.",
+      views: [
+        { id: "heatmap", label: "Traffic Heatmap" },
+        { id: "categories", label: "Category Mix" },
+      ],
+    },
+    diabetes: {
+      title: "Diabetes Prediction using Machine Learning",
+      subtitle: "Interactive model-readout view based on preprocessing, classification comparison, and evaluation metrics.",
+      views: [
+        { id: "models", label: "Model Scores" },
+        { id: "segments", label: "Risk Segments" },
+      ],
+    },
+    air: {
+      title: "Air Quality Monitoring & Pollution Level Prediction",
+      subtitle: "Interactive pollution analysis preview focused on PM2.5 forecasting, pollutant behavior, and tuned model output.",
+      views: [
+        { id: "trends", label: "Trend Window" },
+        { id: "pollutants", label: "Pollutant Mix" },
+      ],
+    },
+  };
+
+  function openModal(projectId) {
+    state.projectId = projectId;
+    state.activeView = projects[projectId].views[0].id;
+    renderModal();
+    modal.hidden = false;
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    modal.hidden = true;
+    document.body.style.overflow = "";
+  }
+
+  function renderToolbar(project) {
+    toolbar.innerHTML = project.views
+      .map(
+        (view) => `
+          <button type="button" class="project-modal-tab ${state.activeView === view.id ? "active" : ""}" data-project-view="${view.id}">
+            ${view.label}
+          </button>
+        `
+      )
+      .join("");
+  }
+
+  function renderFintrack(viewId) {
+    if (viewId === "categories") {
+      return `
+        <div class="modal-grid-two">
+          <section class="modal-panel">
+            <h4>Spending category response layer</h4>
+            <div class="modal-inline-chart warm">
+              <span style="height: 76%"></span>
+              <span style="height: 54%"></span>
+              <span style="height: 82%"></span>
+              <span style="height: 61%"></span>
+              <span style="height: 47%"></span>
+            </div>
+            <p class="modal-detail-note">The API summary endpoint is designed to make monthly category comparisons readable and recruiter-friendly, not just technically correct.</p>
+          </section>
+          <aside class="modal-panel">
+            <h4>What this preview represents</h4>
+            <div class="modal-kpi-row">
+              <div class="modal-stat"><strong>JWT</strong><span>Authentication flow</span></div>
+              <div class="modal-stat"><strong>SUM</strong><span>SQL aggregations</span></div>
+              <div class="modal-stat"><strong>6</strong><span>Tested endpoints</span></div>
+            </div>
+            <p class="modal-detail-note">This larger view reflects how the project combines transaction management, category-level reporting, and financial summaries through relational design and grouped SQL logic.</p>
+          </aside>
+        </div>
+      `;
+    }
+
+    const activeDetail = fintrackDetails[state.fintrackCell] || "Steady request density with stronger traffic around reporting and transaction review endpoints.";
+    return `
+      <div class="modal-grid-two">
+        <section class="modal-panel">
+          <h4>Monthly interaction heatmap</h4>
+          <div class="modal-heatmap">
+            ${fintrackHeat
+              .map(([labelText, level]) => {
+                const active = state.fintrackCell === labelText ? "active" : "";
+                return `<button type="button" class="${active}" data-fintrack-cell="${labelText}" style="background: rgba(125, 249, 198, ${0.1 + level * 0.14})">${labelText}</button>`;
+              })
+              .join("")}
+          </div>
+        </section>
+        <aside class="modal-panel">
+          <h4>${state.fintrackCell}</h4>
+          <div class="modal-kpi-row">
+            <div class="modal-stat"><strong>24</strong><span>Tracked requests</span></div>
+            <div class="modal-stat"><strong>3</strong><span>Summary groups</span></div>
+            <div class="modal-stat"><strong>PostgreSQL</strong><span>Source layer</span></div>
+          </div>
+          <p class="modal-detail-note">${activeDetail}</p>
+        </aside>
+      </div>
+    `;
+  }
+
+  function renderDiabetes(viewId) {
+    if (viewId === "segments") {
+      return `
+        <div class="modal-grid-two">
+          <section class="modal-panel">
+            <h4>Risk segment explorer</h4>
+            <div class="modal-selector-row">
+              ${Object.keys(diabetesSegments)
+                .map(
+                  (segment) => `
+                    <button type="button" class="modal-option ${state.diabetesSegment === segment ? "active" : ""}" data-diabetes-segment="${segment}">
+                      <strong>${segment}</strong>
+                      <span>Predicted profile</span>
+                    </button>
+                  `
+                )
+                .join("")}
+            </div>
+          </section>
+          <aside class="modal-panel">
+            <h4>${state.diabetesSegment}</h4>
+            <p class="modal-detail-note">${diabetesSegments[state.diabetesSegment]}</p>
+            <div class="modal-kpi-row">
+              <div class="modal-stat"><strong>Scaled</strong><span>Input features</span></div>
+              <div class="modal-stat"><strong>Cleaned</strong><span>Missing values handled</span></div>
+              <div class="modal-stat"><strong>Binary</strong><span>Outcome target</span></div>
+            </div>
+          </aside>
+        </div>
+      `;
+    }
+
+    const model = diabetesModels[state.diabetesModel];
+    return `
+      <div class="modal-grid-two">
+        <section class="modal-panel">
+          <h4>Model comparison</h4>
+          <div class="modal-selector-row">
+            ${Object.keys(diabetesModels)
+              .map(
+                (name) => `
+                  <button type="button" class="modal-option ${state.diabetesModel === name ? "active" : ""}" data-diabetes-model="${name}">
+                    <strong>${name}</strong>
+                    <span>Classification model</span>
+                  </button>
+                `
+              )
+              .join("")}
+          </div>
+          <div class="modal-inline-chart warm">
+            ${model.bars.map((bar) => `<span style="height: ${bar}%"></span>`).join("")}
+          </div>
+        </section>
+        <aside class="modal-panel">
+          <h4>${state.diabetesModel}</h4>
+          <div class="modal-kpi-row">
+            <div class="modal-stat"><strong>${model.accuracy}</strong><span>Accuracy</span></div>
+            <div class="modal-stat"><strong>${model.precision}</strong><span>Precision</span></div>
+            <div class="modal-stat"><strong>${model.recall}</strong><span>Recall</span></div>
+          </div>
+          <p class="modal-detail-note">${model.note}</p>
+        </aside>
+      </div>
+    `;
+  }
+
+  function renderAir(viewId) {
+    if (viewId === "pollutants") {
+      const metric = airMetrics[state.airMetric];
+      return `
+        <div class="modal-grid-two">
+          <section class="modal-panel">
+            <h4>Pollutant comparison</h4>
+            <div class="modal-pollutant-row">
+              ${Object.keys(airMetrics)
+                .map(
+                  (metricName) => `
+                    <button type="button" class="modal-option ${state.airMetric === metricName ? "active" : ""}" data-air-metric="${metricName}">
+                      <strong>${metricName}</strong>
+                      <span>Observed signal</span>
+                    </button>
+                  `
+                )
+                .join("")}
+            </div>
+            <div class="modal-inline-chart">
+              ${metric.bars.map((bar) => `<span style="height: ${bar}%"></span>`).join("")}
+            </div>
+          </section>
+          <aside class="modal-panel">
+            <h4>${state.airMetric} signal</h4>
+            <p class="modal-detail-note">${metric.note}</p>
+            <div class="modal-kpi-row">
+              <div class="modal-stat"><strong>0.86</strong><span>R2 score</span></div>
+              <div class="modal-stat"><strong>XGBoost</strong><span>Tuned model</span></div>
+              <div class="modal-stat"><strong>EDA</strong><span>Trend study</span></div>
+            </div>
+          </aside>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="modal-grid-two">
+        <section class="modal-panel">
+          <h4>Forecast window</h4>
+          <div class="modal-selector-row">
+            ${["Early week", "Peak week", "Post-rain shift"]
+              .map(
+                (windowLabel) => `
+                  <button type="button" class="modal-option ${state.airView === windowLabel ? "active" : ""}" data-air-view="${windowLabel}">
+                    <strong>${windowLabel}</strong>
+                    <span>Trend snapshot</span>
+                  </button>
+                `
+              )
+              .join("")}
+          </div>
+          <div class="modal-inline-chart">
+            ${(
+              {
+                "Early week": [32, 44, 49, 58, 55, 47, 52],
+                "Peak week": [41, 57, 52, 72, 81, 67, 76],
+                "Post-rain shift": [24, 33, 29, 38, 42, 35, 31],
+              }[state.airView]
+            )
+              .map((bar) => `<span style="height: ${bar}%"></span>`)
+              .join("")}
+          </div>
+        </section>
+        <aside class="modal-panel">
+          <h4>${state.airView}</h4>
+          <p class="modal-detail-note">This view reflects how the project studies pollutant trend changes across time, then uses engineered features and tuned models to improve PM2.5 prediction quality.</p>
+          <div class="modal-kpi-row">
+            <div class="modal-stat"><strong>Temporal</strong><span>Trend analysis</span></div>
+            <div class="modal-stat"><strong>Correlated</strong><span>Feature review</span></div>
+            <div class="modal-stat"><strong>12%</strong><span>Approx. lift</span></div>
+          </div>
+        </aside>
+      </div>
+    `;
+  }
+
+  function renderModal() {
+    const project = projects[state.projectId];
+    if (!project) return;
+
+    label.textContent = "Interactive Preview";
+    title.textContent = project.title;
+    subtitle.textContent = project.subtitle;
+    renderToolbar(project);
+
+    if (state.projectId === "fintrack") body.innerHTML = renderFintrack(state.activeView);
+    if (state.projectId === "diabetes") body.innerHTML = renderDiabetes(state.activeView);
+    if (state.projectId === "air") body.innerHTML = renderAir(state.activeView);
+  }
+
+  previewButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      openModal(button.dataset.projectPreview);
+    });
+  });
+
+  toolbar.addEventListener("click", (event) => {
+    const nextView = event.target.closest("[data-project-view]");
+    if (!nextView) return;
+    state.activeView = nextView.dataset.projectView;
+    renderModal();
+  });
+
+  body.addEventListener("click", (event) => {
+    const fintrackCell = event.target.closest("[data-fintrack-cell]");
+    const diabetesModel = event.target.closest("[data-diabetes-model]");
+    const diabetesSegment = event.target.closest("[data-diabetes-segment]");
+    const airMetric = event.target.closest("[data-air-metric]");
+    const airView = event.target.closest("[data-air-view]");
+
+    if (fintrackCell) {
+      state.fintrackCell = fintrackCell.dataset.fintrackCell;
+      renderModal();
+    }
+    if (diabetesModel) {
+      state.diabetesModel = diabetesModel.dataset.diabetesModel;
+      renderModal();
+    }
+    if (diabetesSegment) {
+      state.diabetesSegment = diabetesSegment.dataset.diabetesSegment;
+      renderModal();
+    }
+    if (airMetric) {
+      state.airMetric = airMetric.dataset.airMetric;
+      renderModal();
+    }
+    if (airView) {
+      state.airView = airView.dataset.airView;
+      renderModal();
+    }
+  });
+
+  closeButton?.addEventListener("click", closeModal);
+  modal.querySelector("[data-close-project-modal]")?.addEventListener("click", closeModal);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !modal.hidden) {
+      closeModal();
+    }
   });
 })();

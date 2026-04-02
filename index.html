@@ -23,7 +23,16 @@
   <canvas id="particle-canvas" aria-hidden="true"></canvas>
   <div class="page-shell">
     <nav id="navbar">
-      <a href="#hero" class="nav-logo" aria-label="Go to top">SS02</a>
+      <a
+        href="https://github.com/Sandeep-Sharma-02"
+        class="nav-logo nav-logo-github"
+        target="_blank"
+        rel="noopener"
+        aria-label="Open GitHub profile"
+      >
+        <i class="fab fa-github"></i>
+        <span>GitHub</span>
+      </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
@@ -102,7 +111,7 @@
               <div class="photo-frame-wrap" id="photoFrameWrap" title="Click to upload your photo">
                 <div class="photo-frame-ring"></div>
                 <div class="photo-frame-inner">
-                  <img id="profilePhoto" src="profile.jpg" alt="Sandeep Sharma" style="display:block;" />
+                  <img id="profilePhoto" src="profile-photo.jpeg" alt="Sandeep Sharma" style="display:block;" />
                   <div class="photo-placeholder" id="photoPlaceholder" style="display:none;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
                     <span>Upload Photo</span>
@@ -204,74 +213,92 @@
             <h2>Skills &amp; Technologies</h2>
           </div>
 
-          <div class="skills-grid">
-            <article class="skill-category glass-card">
-              <div class="skill-icon"><i class="fas fa-code"></i></div>
-              <h3>Languages</h3>
-              <div class="skill-tags">
-                <span class="tag tag-blue">C++</span>
-                <span class="tag tag-orange">Python</span>
-                <span class="tag tag-yellow">JavaScript</span>
-                <span class="tag tag-purple">SQL</span>
+          <div class="skills-matrix">
+            <article class="skill-column glass-card">
+              <div class="skill-column-head">
+                <div class="skill-icon"><i class="fas fa-laptop-code"></i></div>
+                <div>
+                  <p class="mini-label">Development</p>
+                  <h3>Core engineering stack</h3>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-row-label">Languages</span>
+                <div class="skill-row-tags">
+                  <span class="tag tag-blue">C++</span>
+                  <span class="tag tag-orange">Python</span>
+                  <span class="tag tag-yellow">JavaScript</span>
+                  <span class="tag tag-purple">SQL</span>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-row-label">Backend</span>
+                <div class="skill-row-tags">
+                  <span class="tag tag-green">Node.js</span>
+                  <span class="tag tag-teal">Express.js</span>
+                  <span class="tag tag-red">FastAPI</span>
+                  <span class="tag tag-dark">REST API</span>
+                </div>
               </div>
             </article>
 
-            <article class="skill-category glass-card">
-              <div class="skill-icon"><i class="fas fa-server"></i></div>
-              <h3>Backend</h3>
-              <div class="skill-tags">
-                <span class="tag tag-green">Node.js</span>
-                <span class="tag tag-teal">Express.js</span>
-                <span class="tag tag-red">FastAPI</span>
-                <span class="tag tag-dark">REST API</span>
+            <article class="skill-column glass-card">
+              <div class="skill-column-head">
+                <div class="skill-icon"><i class="fas fa-chart-column"></i></div>
+                <div>
+                  <p class="mini-label">Analytics</p>
+                  <h3>Data and ML workflow</h3>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-row-label">Data Science</span>
+                <div class="skill-row-tags">
+                  <span class="tag tag-blue">NumPy</span>
+                  <span class="tag tag-teal">Pandas</span>
+                  <span class="tag tag-orange">Matplotlib</span>
+                  <span class="tag tag-purple">Scikit-learn</span>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-row-label">Databases</span>
+                <div class="skill-row-tags">
+                  <span class="tag tag-purple">PostgreSQL</span>
+                  <span class="tag tag-blue">MySQL</span>
+                  <span class="tag tag-orange">Schema Design</span>
+                  <span class="tag tag-teal">SQL Queries</span>
+                </div>
               </div>
             </article>
 
-            <article class="skill-category glass-card">
-              <div class="skill-icon"><i class="fas fa-database"></i></div>
-              <h3>Databases</h3>
-              <div class="skill-tags">
-                <span class="tag tag-purple">PostgreSQL</span>
-                <span class="tag tag-blue">MySQL</span>
-                <span class="tag tag-orange">Schema Design</span>
-                <span class="tag tag-teal">SQL Queries</span>
+            <article class="skill-column glass-card">
+              <div class="skill-column-head">
+                <div class="skill-icon"><i class="fas fa-briefcase"></i></div>
+                <div>
+                  <p class="mini-label">Workflow</p>
+                  <h3>Tools and execution style</h3>
+                </div>
               </div>
-            </article>
-
-            <article class="skill-category glass-card">
-              <div class="skill-icon"><i class="fas fa-brain"></i></div>
-              <h3>Data Science &amp; ML</h3>
-              <div class="skill-tags">
-                <span class="tag tag-blue">NumPy</span>
-                <span class="tag tag-teal">Pandas</span>
-                <span class="tag tag-orange">Matplotlib</span>
-                <span class="tag tag-purple">Scikit-learn</span>
+              <div class="skill-row">
+                <span class="skill-row-label">Platforms</span>
+                <div class="skill-row-tags">
+                  <span class="tag tag-dark">Git</span>
+                  <span class="tag tag-dark">GitHub</span>
+                  <span class="tag tag-blue">VS Code</span>
+                  <span class="tag tag-green">Postman</span>
+                  <span class="tag tag-yellow">Power BI</span>
+                  <span class="tag tag-orange">Jupyter</span>
+                  <span class="tag tag-teal">Kaggle</span>
+                </div>
               </div>
-            </article>
-
-            <article class="skill-category glass-card">
-              <div class="skill-icon"><i class="fas fa-screwdriver-wrench"></i></div>
-              <h3>Tools &amp; Platforms</h3>
-              <div class="skill-tags">
-                <span class="tag tag-dark">Git</span>
-                <span class="tag tag-dark">GitHub</span>
-                <span class="tag tag-blue">VS Code</span>
-                <span class="tag tag-green">Postman</span>
-                <span class="tag tag-yellow">Power BI</span>
-                <span class="tag tag-orange">Jupyter</span>
-                <span class="tag tag-teal">Kaggle</span>
-              </div>
-            </article>
-
-            <article class="skill-category glass-card">
-              <div class="skill-icon"><i class="fas fa-people-group"></i></div>
-              <h3>Soft Skills</h3>
-              <div class="skill-tags">
-                <span class="tag tag-teal">Problem Solving</span>
-                <span class="tag tag-green">Team Collaboration</span>
-                <span class="tag tag-blue">Communication</span>
-                <span class="tag tag-purple">Adaptability</span>
-                <span class="tag tag-yellow">Critical Thinking</span>
+              <div class="skill-row">
+                <span class="skill-row-label">Strengths</span>
+                <div class="skill-row-tags">
+                  <span class="tag tag-teal">Problem Solving</span>
+                  <span class="tag tag-green">Team Collaboration</span>
+                  <span class="tag tag-blue">Communication</span>
+                  <span class="tag tag-purple">Adaptability</span>
+                  <span class="tag tag-yellow">Critical Thinking</span>
+                </div>
               </div>
             </article>
           </div>
@@ -291,14 +318,73 @@
                 <span class="project-date">Feb 2026 - Mar 2026</span>
                 <span class="project-kind">Backend Project</span>
               </div>
-              <div class="project-visual project-chart">
-                <div class="chart-bars">
-                  <span class="chart-bar" style="height: 88%"><small>Auth</small></span>
-                  <span class="chart-bar" style="height: 72%"><small>Queries</small></span>
-                  <span class="chart-bar" style="height: 94%"><small>Tests</small></span>
-                  <span class="chart-bar" style="height: 78%"><small>Deploy</small></span>
+              <button type="button" class="project-preview-button" data-project-preview="fintrack" aria-label="Open FinTrack interactive preview">
+                <div class="project-visual project-visual-fintrack">
+                  <div class="preview-window-chrome">
+                    <span></span><span></span><span></span>
+                  </div>
+                  <div class="preview-header">
+                    <div>
+                      <span class="preview-overline">Finance API</span>
+                      <strong>Monthly summary dashboard</strong>
+                    </div>
+                    <span class="preview-chip preview-chip-accent">PostgreSQL + JWT</span>
+                  </div>
+                  <div class="preview-dashboard-grid">
+                    <div class="preview-panel preview-panel-primary">
+                      <span class="preview-panel-label">Cash Flow</span>
+                      <div class="preview-line-chart">
+                        <span style="height: 36%"></span>
+                        <span style="height: 54%"></span>
+                        <span style="height: 48%"></span>
+                        <span style="height: 72%"></span>
+                        <span style="height: 66%"></span>
+                        <span style="height: 84%"></span>
+                        <span style="height: 78%"></span>
+                      </div>
+                    </div>
+                    <div class="preview-stat-stack">
+                      <div class="preview-stat-card">
+                        <strong>6</strong>
+                        <span>Endpoints</span>
+                      </div>
+                      <div class="preview-stat-card">
+                        <strong>JWT</strong>
+                        <span>Secure auth</span>
+                      </div>
+                      <div class="preview-stat-card">
+                        <strong>SQL</strong>
+                        <span>Summary logic</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="preview-mini-graph">
+                    <div class="preview-mini-graph-head">
+                      <span>Endpoint usage</span>
+                      <span>Last 30 days</span>
+                    </div>
+                    <div class="preview-area-chart">
+                      <span style="height: 42%"></span>
+                      <span style="height: 56%"></span>
+                      <span style="height: 51%"></span>
+                      <span style="height: 74%"></span>
+                      <span style="height: 68%"></span>
+                      <span style="height: 82%"></span>
+                      <span style="height: 76%"></span>
+                      <span style="height: 88%"></span>
+                    </div>
+                  </div>
+                  <div class="preview-data-table">
+                    <span>Housing</span>
+                    <span>45%</span>
+                    <span>Food</span>
+                    <span>21%</span>
+                    <span>Savings</span>
+                    <span>17%</span>
+                  </div>
                 </div>
-              </div>
+                <span class="project-preview-hint">Expand interactive preview</span>
+              </button>
               <h3>FinTrack REST API</h3>
               <p>Production-grade personal finance tracker API built with secure authentication, relational data design, and tested financial reporting endpoints.</p>
               <ul class="project-points">
@@ -322,22 +408,69 @@
                 <span class="project-date">Aug 2024 - Sep 2024</span>
                 <span class="project-kind">Machine Learning Project</span>
               </div>
-              <div class="project-visual project-chart">
-                <div class="chart-metrics">
-                  <div>
-                    <strong>768</strong>
-                    <span>Records</span>
+              <button type="button" class="project-preview-button" data-project-preview="diabetes" aria-label="Open diabetes prediction interactive preview">
+                <div class="project-visual project-visual-diabetes">
+                  <div class="preview-window-chrome">
+                    <span></span><span></span><span></span>
                   </div>
-                  <div>
-                    <strong>0.87</strong>
-                    <span>ROC-AUC</span>
+                  <div class="preview-header">
+                    <div>
+                      <span class="preview-overline">Prediction Model</span>
+                      <strong>Clinical risk evaluation</strong>
+                    </div>
+                    <span class="preview-chip preview-chip-accent">ROC-AUC 0.87</span>
                   </div>
-                  <div>
-                    <strong>3</strong>
-                    <span>Models</span>
+                  <div class="preview-dashboard-grid">
+                    <div class="preview-panel preview-panel-primary">
+                      <span class="preview-panel-label">Feature influence</span>
+                      <div class="preview-metric-list">
+                        <div><span>Glucose</span><b style="width: 88%"></b></div>
+                        <div><span>BMI</span><b style="width: 74%"></b></div>
+                        <div><span>Age</span><b style="width: 56%"></b></div>
+                        <div><span>Insulin</span><b style="width: 48%"></b></div>
+                      </div>
+                    </div>
+                    <div class="preview-stat-stack">
+                      <div class="preview-stat-card">
+                        <strong>768</strong>
+                        <span>Records</span>
+                      </div>
+                      <div class="preview-stat-card">
+                        <strong>3</strong>
+                        <span>Models</span>
+                      </div>
+                      <div class="preview-stat-card">
+                        <strong>RF</strong>
+                        <span>Best fit</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="preview-mini-graph">
+                    <div class="preview-mini-graph-head">
+                      <span>Model score trend</span>
+                      <span>Evaluation window</span>
+                    </div>
+                    <div class="preview-area-chart preview-area-chart-warm">
+                      <span style="height: 48%"></span>
+                      <span style="height: 61%"></span>
+                      <span style="height: 72%"></span>
+                      <span style="height: 66%"></span>
+                      <span style="height: 84%"></span>
+                      <span style="height: 78%"></span>
+                      <span style="height: 90%"></span>
+                    </div>
+                  </div>
+                  <div class="preview-data-table preview-data-table-wide">
+                    <span>Precision</span>
+                    <span>0.84</span>
+                    <span>Recall</span>
+                    <span>0.82</span>
+                    <span>F1-Score</span>
+                    <span>0.83</span>
                   </div>
                 </div>
-              </div>
+                <span class="project-preview-hint">Expand interactive preview</span>
+              </button>
               <h3>Diabetes Prediction using Machine Learning</h3>
               <p>Health-data classification project focused on careful preprocessing, model comparison, and evaluation using multiple statistical performance metrics.</p>
               <ul class="project-points">
@@ -361,14 +494,54 @@
                 <span class="project-date">May 2024 - Jun 2024</span>
                 <span class="project-kind">Prediction Project</span>
               </div>
-              <div class="project-visual project-chart">
-                <div class="chart-bars">
-                  <span class="chart-bar chart-bar-alt" style="height: 86%"><small>R2</small></span>
-                  <span class="chart-bar chart-bar-alt" style="height: 64%"><small>EDA</small></span>
-                  <span class="chart-bar chart-bar-alt" style="height: 76%"><small>Tuning</small></span>
-                  <span class="chart-bar chart-bar-alt" style="height: 68%"><small>PM2.5</small></span>
+              <button type="button" class="project-preview-button" data-project-preview="air" aria-label="Open air quality interactive preview">
+                <div class="project-visual project-visual-air">
+                  <div class="preview-window-chrome">
+                    <span></span><span></span><span></span>
+                  </div>
+                  <div class="preview-header">
+                    <div>
+                      <span class="preview-overline">Air Quality Model</span>
+                      <strong>Pollution trend forecasting</strong>
+                    </div>
+                    <span class="preview-chip preview-chip-accent">R2 0.86</span>
+                  </div>
+                  <div class="preview-panel preview-panel-primary">
+                    <span class="preview-panel-label">PM2.5 forecast curve</span>
+                    <div class="preview-line-chart preview-line-chart-soft">
+                      <span style="height: 28%"></span>
+                      <span style="height: 42%"></span>
+                      <span style="height: 39%"></span>
+                      <span style="height: 63%"></span>
+                      <span style="height: 69%"></span>
+                      <span style="height: 58%"></span>
+                      <span style="height: 77%"></span>
+                    </div>
+                  </div>
+                  <div class="preview-mini-graph">
+                    <div class="preview-mini-graph-head">
+                      <span>Pollution intensity</span>
+                      <span>Observed trend</span>
+                    </div>
+                    <div class="preview-area-chart preview-area-chart-soft">
+                      <span style="height: 26%"></span>
+                      <span style="height: 39%"></span>
+                      <span style="height: 44%"></span>
+                      <span style="height: 58%"></span>
+                      <span style="height: 71%"></span>
+                      <span style="height: 64%"></span>
+                      <span style="height: 79%"></span>
+                    </div>
+                  </div>
+                  <div class="preview-pollutant-grid">
+                    <div class="preview-stat-card"><strong>PM2.5</strong><span>Target variable</span></div>
+                    <div class="preview-stat-card"><strong>NO2</strong><span>Traffic signal</span></div>
+                    <div class="preview-stat-card"><strong>SO2</strong><span>Industrial trace</span></div>
+                    <div class="preview-stat-card"><strong>O3</strong><span>Seasonal spread</span></div>
+                  </div>
                 </div>
-              </div>
+                <span class="project-preview-hint">Expand interactive preview</span>
+              </button>
               <h3>Air Quality Monitoring &amp; Pollution Level Prediction</h3>
               <p>Data science project focused on pollutant trend analysis, feature engineering, and prediction of PM2.5 severity through tuned machine learning models.</p>
               <ul class="project-points">
@@ -677,6 +850,21 @@
   </div>
 
   <button id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+  <div class="project-modal" id="projectModal" hidden>
+    <div class="project-modal-backdrop" data-close-project-modal></div>
+    <div class="project-modal-dialog glass-card" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+      <button type="button" class="project-modal-close" id="projectModalClose" aria-label="Close project preview">
+        <i class="fas fa-xmark"></i>
+      </button>
+      <div class="project-modal-header">
+        <p class="mini-label" id="projectModalLabel">Interactive Preview</p>
+        <h3 id="projectModalTitle">Project Preview</h3>
+        <p id="projectModalSubtitle"></p>
+      </div>
+      <div class="project-modal-toolbar" id="projectModalToolbar"></div>
+      <div class="project-modal-body" id="projectModalBody"></div>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
